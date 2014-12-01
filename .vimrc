@@ -1,133 +1,93 @@
-syntax on
 au GUIEnter * simalt ~x
 set guioptions-=m
 set guioptions-=T
 map <silent> <F2> :if &guioptions =~# 'T' <Bar>
-        \set guioptions-=T <Bar>
-        \set guioptions-=m <bar>
-    \else <Bar>
-        \set guioptions+=T <Bar>
-        \set guioptions+=m <Bar>
-    \endif<CR>
+			\set guioptions-=T <Bar>
+			\set guioptions-=m <bar>
+			\else <Bar>
+			\set guioptions+=T <Bar>
+			\set guioptions+=m <Bar>
+			\endif<CR>
 
-"TODO: jshint
-"TODO:按指定字符对齐
-
-"set nocompatible
-"source $VIMRUNTIME/vimrc_example.vim
-"source $VIMRUNTIME/mswin.vim
-"behave mswin
-set paste
+"关键字高亮
+syntax on
 "设置工作目录为当前编辑文件的目录
 set bsdir=buffer
 set autochdir
-
 "编码设置
 set enc=utf-8
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
-
-"语言设置
-set langmenu=zh_CN.UTF-8
-language message zh_CN.UTF-8
-"set guifont=NSimSun:h10
-
-"set guifont=Monaco:h9
-"set guifont=Courier_New:h14:cANSI
-"set gfw=YaHei\ Consolas\ Hybrid:h9
-set guifont=Courier\ New:h14
-"set guifont=Consolas:h12
-"set guifont=YaHei\ Consolas\ Hybrid:h12
-"set guifont=Yahei\ Mono:h12
-
-"set helplang=cn
-"source $VIMRUNTIME/delmenu.vim
-"source $VIMRUNTIME/menu.vim
-
 "禁止生成临时文件
 set nobackup
-
 "搜索忽略大小写
 set ignorecase 
-
 "搜索逐字符高亮
 set incsearch
-
-"行内替换
+"行内替换时,使用g标签成为默认设置， 替换本行所有符合的匹配
 set gdefault
-
+"高亮显示查找结果
+set hlsearch
 "始终显示行号
 set nu!
-
 "显示光标的坐标
 set ruler
-
 "高亮整行
-"set cursorline
-
-
+set cursorline
 "自动缩进
-set noautoindent
-set cindent
+set autoindent
 set smartindent
-
+set cindent
 "Tab键的宽度
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=4 "自动缩进
+set tabstop=4    "tab长度	
+set softtabstop=4
+set expandtab    "展开tab为4个空格
+"匹配模式，输入右括号会跳到左括号
+set showmatch
 
+"TODO: jshint
 
-"Tab键插入四个空格,仅PHP
-autocmd FileType php set shiftwidth=4 tabstop=4 expandtab softtabstop=4
+"set nocompatible
+""source $VIMRUNTIME/vimrc_example.vim
+"source $VIMRUNTIME/mswin.vim
+""behave mswin
+set paste
+"
+
+"语言设置
+"set langmenu=zh_CN.UTF-8
+"language message zh_CN.UTF-8
+""set guifont=NSimSun:h10
+
+"set guifont=Monaco:h9
+""set guifont=Courier_New:h14:cANSI
+"set gfw=YaHei\ Consolas\ Hybrid:h9
+"set guifont=Courier\ New:h14
+""set guifont=Consolas:h12
+"set guifont=YaHei\ Consolas\ Hybrid:h12
+""set guifont=Yahei\ Mono:h12
+
+"set helplang=cn
+""source $VIMRUNTIME/delmenu.vim
+"source $VIMRUNTIME/menu.vim
+"
 
 "与Windows共享剪贴板
-"set clipboard+=unnamed
+set clipboard+=unnamed
 
 
 "编辑vimrc之后，重新加载
-autocmd! bufwritepost _vimrc source $VIM/_vimrc
+autocmd! bufwritepost .vimrc source $HOME/.vimrc
 
-"配色方案
+""配色方案
 " colorscheme molokai 
+"
+" "自定义关联文件类型
+" au BufNewFile,BufRead *.less set filetype=css
+" au BufNewFile,BufRead *.phtml set filetype=php
+" au BufRead,BufNewFile *.js set ft=javascript.jquery
 
-"自定义关联文件类型
-au BufNewFile,BufRead *.less set filetype=css
-au BufNewFile,BufRead *.phtml set filetype=php
-au BufRead,BufNewFile *.js set ft=javascript.jquery
 
-"--------插件设置
-
-"---NeoComplCache 启动并使用Tab触发
-let g:neocomplcache_enable_at_startup = 1 
-
-"tab切换
-:nn <M-1> 1gt
-:nn <M-2> 2gt
-:nn <M-3> 3gt
-:nn <M-4> 4gt
-:nn <M-5> 5gt
-:nn <M-6> 6gt
-:nn <M-7> 7gt
-:nn <M-8> 8gt
-:nn <M-9> 9gt
-:nn <M-0> :tablast<CR>
-
-:noremap ,b :!cd "%:p:h";bash<cr>
-
-"作者插件
-let g:vimrc_author='panwf'
-let g:vimrc_email='panwf@mail.open.com.cn'
-let g:vimrc_copyright='Copyright (c) 2013 Open Inc.'
-
-nmap <F4> :AuthorInfoDetect<cr>
-"注释插件
-let mapleader=","
-",ca,在可选的注释方式之间切换，比如C/C++ 的块注释/* */和行注释//
-",cc，注释当前行
-",c，切换注释/非注释状态
-",cs，以”性感”的方式注释
-",cA，在当前行尾添加注释符，并进入Insert模式
-",cu，取消注释
-"Normal模式下，几乎所有命令前面都可以指定行数
-"Visual模式下执行命令，会对选中的特定区块进行注释/反注释
 """""""""""""""""""""""""""""""""""""""""""""
 "##########vundle插件管理器开始##########
 """""""""""""""""""""""""""""""""""""""""""
@@ -148,7 +108,8 @@ Bundle 'gmarik/vundle'
 ":BundleClean! 根据配置文件删除插件
 
 "插件管理核心库
-Bundle "mattn/zencoding-vim"
+"zencoding
+Bundle "emmetio/emmet"
 Bundle "msanders/snipmate.vim"
 Bundle "kevinw/pyflakes-vim"
 Bundle "kien/ctrlp.vim"
@@ -158,10 +119,11 @@ Bundle "tomasr/molokai"
 Bundle "scrooloose/nerdtree"
 Bundle "skammer/vim-css-color"
 Bundle "vim-scripts/Align"
-Bundle "Shougo/neocomplcache"
+"Bundle "vim-scripts/neocomplcache"
 Bundle "vim-scripts/AuthorInfo"
 Bundle "scrooloose/nerdcommenter"
-
+Bundle "vim-scripts/ctags"
+Bundle "vim-scripts/taglist"
 ""==================Plugin start
 ""代码补全
 ""Bundle 'Shougo/neosnippet'
@@ -207,4 +169,15 @@ Bundle "scrooloose/nerdcommenter"
 ""=======================Plugin end
 "激活插件与文件类型的依赖关系
 filetype plugin indent on
+"""""""""""""""""""""""""""""""""""""""""""""
+"各种插件配置
+"作者插件
+let g:vimrc_author='panweifeng@youku.com'
+"let g:vimrc_email='panweifeng@youku.com'
+"let g:vimrc_copyright='Copyright (c) 2014 YouKu Inc.'
+"let g:vimrc_homepage='http://www.vimer.cn'
+
+nmap <F4> :AuthorInfoDetect<cr>
+"""""""""""""""""""""""""""""""""""""""""""""
 "##########vundle插件管理器结束##########
+"""""""""""""""""""""""""""""""""""""""""""""
